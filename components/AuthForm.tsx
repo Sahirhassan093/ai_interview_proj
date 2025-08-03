@@ -60,38 +60,32 @@ const AuthForm = ({type}: {type:FormType}) => {
 
       const user = userCredentials.user;
       
-      if (type === 'sign-up') {
-        // For sign-up, create user in database
+      // Check if this is a new user (first time with Google)
+      const isNewUser = user.metadata.creationTime === user.metadata.lastSignInTime;
+      
+      if (isNewUser) {
+        // New user - create in database
         const result = await signUp({
           uid: user.uid,
           name: user.displayName || 'Google User',
           email: user.email!,
         });
 
-        if (!result?.success) {
-          if (result?.message.includes("already exists")) {
-            // User already exists, just sign them in
-            await signIn({ email: user.email!, idToken });
-            toast.success('Welcome back! Signed in successfully.');
-            router.push('/');
-          } else {
-            toast.error(result?.message);
-          }
+        if (!result?.success && !result?.message.includes("already exists")) {
+          toast.error(result?.message || "Failed to create account");
           return;
         }
-
-        toast.success('Account created successfully with Google!');
-        // After successful signup, sign them in
-        await signIn({ email: user.email!, idToken });
-        router.push('/');
-      } else {
-        // For sign-in, just authenticate
-        const result = await signIn({ email: user.email!, idToken });
         
-        // Check if signIn was successful (you'll need to update your signIn function to return success)
-        toast.success('Signed in successfully with Google!');
-        router.push('/');
+        toast.success('Welcome! Account created successfully with Google.');
+      } else {
+        // Existing user
+        toast.success('Welcome back! Signed in successfully.');
       }
+      
+      // Always sign in and redirect to home for Google auth (both new and existing users)
+      await signIn({ email: user.email!, idToken });
+      router.push('/');
+      
     } catch (error: any) {
       console.error("Google auth error:", error);
       
@@ -124,7 +118,6 @@ const AuthForm = ({type}: {type:FormType}) => {
         
         const result = await signIn({email,idToken});
         
-        // You should update your signIn function to return success/failure
         toast.success('Sign in Successfully.')
         router.push('/')
       }
