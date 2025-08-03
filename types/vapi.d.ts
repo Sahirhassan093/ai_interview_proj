@@ -1,4 +1,4 @@
-/*enum MessageTypeEnum {
+enum MessageTypeEnum {
   TRANSCRIPT = "transcript",
   FUNCTION_CALL = "function-call",
   FUNCTION_CALL_RESULT = "function-call-result",
@@ -47,4 +47,4 @@ interface FunctionCallResultMessage extends BaseMessage {
 type Message =
   | TranscriptMessage
   | FunctionCallMessage
-  | FunctionCallResultMessage;*/
+  | FunctionCallResultMessage;

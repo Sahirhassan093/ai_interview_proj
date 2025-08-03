@@ -1,11 +1,13 @@
 import Agnet from "@/components/Agnet";
+import { getCurrentUser } from "@/lib/actions/auth.action";
 
 
-const page = () => {
+const page = async () => {
+  const user = await getCurrentUser();
   return (
     <>
         <h2>Interview Generation</h2>
-        <Agnet userName='You' userId="user1" type="generate"/>
+        <Agnet userName={user?.name} userId={user?.id} type="generate"/>
     </>
   )
 }
