@@ -184,8 +184,8 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
 
   return (
     <>
-      <div className="call-view">
-        <div className="card-interviewer">
+      <div className="call-view flex flex-col items-center gap-y-6 mt-6"">
+        <div className="card-interviewer flex flex-col items-center gap-y-2">
           <div className="avatar">
             <Image 
               src="/ai-avatar.png"
@@ -218,7 +218,7 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
           </div>
         )}
         
-        <div className="card-border">
+        <div className="card-border flex flex-col items-center gap-y-2">
           <div className="card-content">
             <Image 
               src="/sahir.jpg"
@@ -232,7 +232,7 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
         </div>    
       </div>
       
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center mt-8">
         {callStatus !== 'ACTIVE' ? (
           <button className="relative btn-call" onClick={handleCall}>
             <span 
