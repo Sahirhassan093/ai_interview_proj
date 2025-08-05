@@ -184,7 +184,7 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
 
   return (
     <>
-      <div className="call-view flex flex-col items-center gap-y-6 mt-6"">
+      <div className="call-view flex flex-col items-center gap-y-6 mt-6">
         <div className="card-interviewer flex flex-col items-center gap-y-2">
           <div className="avatar">
             <Image 
